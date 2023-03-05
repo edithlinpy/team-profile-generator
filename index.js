@@ -10,25 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-// an object stores all employee data, including
-// an manager object
-// an array of engineers
-// an array of interns
-const empolyeeData = {
-    manager: {},
-    engineers: [],
-    interns: []
-} 
-
-// const manager = new Manager("Json Marlow", 1, "json.marlow@domain.com", 1001);
-// console.log("---Manager---");
-// console.log(manager);
-// const engineer = new Engineer("Michael Jordon", 2, "mjordon@gmail.com", "http://lkasdf.lkla");
-// console.log("---Engineer---");
-// console.log(engineer);
-// const intern = new Intern("Baby Mary", 3, "baby-mary@yahoo.com.uk", "Piggott School");
-// console.log("---Intern---");
-// console.log(intern);
+// an array stores all employee data
+const team = [];
 
 // array of questions for asking manager's details
 const baseQues = [
@@ -91,7 +74,7 @@ function askforEngineerDetails() {
         // console.log(val);
         // create a new Engineer object
         const engineer = new Engineer(val.eeName, val.id, val.email, val.gitHub);
-        empolyeeData.engineers.push(engineer);
+        team.push(engineer);
         console.log("Engineer record is created successfully.");
         askforNextAction();
     });
@@ -112,7 +95,7 @@ function askForInternDetails() {
         // console.log(val);
         // create a new Intern object
         const intern = new Intern(val.eeName, val.id, val.email, val.school);
-        empolyeeData.interns.push(intern);
+        team.push(intern);
         console.log("Intern record is created successfully.");
         askforNextAction();
     });
@@ -120,8 +103,12 @@ function askForInternDetails() {
 
 // Logs goodbye and exits the node app
 function quit() {
-    console.log("--- Employee Data ---");
-    console.log(empolyeeData);
+    // console.log("--- Employee Data ---");
+    // console.log(team);
+    // Generate and return a block of HTML including templated divs for each employee
+    const htmlOutput = render(team);
+    // console.log(htmlOutput);
+    console.log("\HTML genereated successfully!");
     console.log("\nGoodbye!");
     process.exit(0);
 }
@@ -141,7 +128,7 @@ function init() {
         // console.log(val);
         // create a new Manager object
         const manager = new Manager(val.eeName, val.id, val.email, val.officeNum);
-        empolyeeData.manager = manager;
+        team.push(manager);
         console.log("Manager record is created successfully.");
         askforNextAction();
     });
