@@ -54,10 +54,13 @@ function askforNextAction() {
                 askForInternDetails();
                 break;
             default:
+                writeToFile("This is a test - second");
                 quit();
         }
     })
 }
+
+writeToFile("This is a test - first");
 
 // prompt the user for an engineer's details
 function askforEngineerDetails() {
@@ -101,14 +104,39 @@ function askForInternDetails() {
     });
 }
 
+// Write output to a html file
+function writeToFile(htmlOutput) {
+    console.log("write file");
+    console.log(htmlOutput);
+    console.log(outputPath);
+    fs.writeFile("test.txt", htmlOutput, (err) => {
+        err ? console.error(err) : console.log('\nSuccess!')
+    });
+    // fs.writeFile(outputPath, htmlOutput, (err) => {
+    //     err ? console.error(err) : console.log('\nHTML genereated successfully!')
+    // });
+}
+
 // Logs goodbye and exits the node app
 function quit() {
     // console.log("--- Employee Data ---");
     // console.log(team);
     // Generate and return a block of HTML including templated divs for each employee
     const htmlOutput = render(team);
+    // check if the directory exists
+    // try {
+    //     if (fs.existsSync(OUTPUT_DIR)) {
+    //         // Directory exists, write file.
+    //         writeToFile(htmlOutput);
+    //     } else {
+    //         // Directory does not exist.
+    //         fs.mkdirSync(OUTPUT_DIR);
+    //         writeToFile(htmlOutput);
+    //     }
+    // } catch(e) {
+    //     console.log("An error occurred: "+e);
+    // }
     // console.log(htmlOutput);
-    console.log("\HTML genereated successfully!");
     console.log("\nGoodbye!");
     process.exit(0);
 }
@@ -135,4 +163,5 @@ function init() {
 }
 
 init();
+
 
