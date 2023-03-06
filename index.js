@@ -54,13 +54,25 @@ function askforNextAction() {
                 askForInternDetails();
                 break;
             default:
-                writeToFile("This is a test - second");
-                quit();
+                // Generate and return a block of HTML including templated divs for each employee
+                const htmlOutput = render(team);
+                // check if the directory exists
+                try {
+                    if (fs.existsSync(OUTPUT_DIR)) {
+                        // Directory exists, write file.
+                        writeToFile(htmlOutput);
+                    } else {
+                        // Directory does not exist.
+                        fs.mkdirSync(OUTPUT_DIR);
+                        writeToFile(htmlOutput);
+                    }
+                } catch(e) {
+                    console.log("An error occurred: "+e);
+                }
+                // console.log(htmlOutput);
         }
     })
 }
-
-writeToFile("This is a test - first");
 
 // prompt the user for an engineer's details
 function askforEngineerDetails() {
@@ -85,7 +97,7 @@ function askforEngineerDetails() {
 
 // prompt the user for an intern's details
 function askForInternDetails() {
-    let internQues = [...baseQues];;
+    let internQues = [...baseQues];
     internQues.push({
         type: 'input',
         message: 'Graduated from:',
@@ -105,40 +117,12 @@ function askForInternDetails() {
 }
 
 // Write output to a html file
-function writeToFile(htmlOutput) {
-    console.log("write file");
-    console.log(htmlOutput);
-    console.log(outputPath);
-    fs.writeFile("test.txt", htmlOutput, (err) => {
-        err ? console.error(err) : console.log('\nSuccess!')
-    });
-    // fs.writeFile(outputPath, htmlOutput, (err) => {
-    //     err ? console.error(err) : console.log('\nHTML genereated successfully!')
-    // });
-}
-
-// Logs goodbye and exits the node app
-function quit() {
-    // console.log("--- Employee Data ---");
-    // console.log(team);
-    // Generate and return a block of HTML including templated divs for each employee
-    const htmlOutput = render(team);
-    // check if the directory exists
-    // try {
-    //     if (fs.existsSync(OUTPUT_DIR)) {
-    //         // Directory exists, write file.
-    //         writeToFile(htmlOutput);
-    //     } else {
-    //         // Directory does not exist.
-    //         fs.mkdirSync(OUTPUT_DIR);
-    //         writeToFile(htmlOutput);
-    //     }
-    // } catch(e) {
-    //     console.log("An error occurred: "+e);
-    // }
+async function writeToFile(htmlOutput) {
+    // console.log("write file");
     // console.log(htmlOutput);
-    console.log("\nGoodbye!");
-    process.exit(0);
+    fs.writeFile(outputPath, htmlOutput, (err) => {
+        err ? console.error(err) : console.log('\nHTML file generated successfully!')
+    });
 }
 
 // Asks the user if they want to play again after running out of guessesLeft
