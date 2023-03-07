@@ -16,19 +16,40 @@ const team = [];
 // array of questions for asking manager's details
 const baseQues = [
     {
-    type: 'input',
-    message: 'Name:',
-    name: 'eeName',
+        type: 'input',
+        message: 'Name:',
+        name: 'eeName',
+        validate(value) {
+            if (!value.length) {
+                return 'Employee\'s name cannot be empty. Please enter a value.';
+            } else {
+                return true;
+            }
+        }
     },
     {
-    type: 'input',
-    message: 'Id:',
-    name: 'id',
+        type: 'input',
+        message: 'Id:',
+        name: 'id',
+        validate(value) {
+            if (!value.length) {
+                return 'Employee\'s ID cannot be empty. Please enter a value.';
+            } else {
+                return true;
+            }
+        }
     },
     {
-    type: 'input',
-    message: 'Email:',
-    name: 'email',
+        type: 'input',
+        message: 'Email:',
+        name: 'email',
+        validate(value) {
+            if (!value.length) {
+                return 'Employee\'s email cannot be empty. Please enter a value.';
+            } else {
+                return true;
+            }
+        }
     },
 ];
 
@@ -81,6 +102,13 @@ function askforEngineerDetails() {
         type: 'input',
         message: 'GitHub link:',
         name: 'gitHub',
+        validate(value) {
+            if (!value.length) {
+                return 'Engineer\'s GitHub link cannot be empty. Please enter a value.';
+            } else {
+                return true;
+            }
+        }
     })
     console.log("Please enter engineer's details below:");
     inquirer
@@ -102,6 +130,13 @@ function askForInternDetails() {
         type: 'input',
         message: 'Graduated from:',
         name: 'school',
+        validate(value) {
+            if (!value.length) {
+                return 'Intern\'s school cannot be empty. Please enter a value.';
+            } else {
+                return true;
+            }
+        }
     })
     console.log("Please enter intern's details below:");
     inquirer
@@ -132,6 +167,13 @@ function init() {
         type: 'input',
         message: 'Office number:',
         name: 'officeNum',
+        validate(value) {
+            if (!value.length) {
+                return 'Manager\'s office number cannot be empty. Please enter a value.';
+            } else {
+                return true;
+            }
+        }
     })
     console.log("Please enter manager's details below:");
     inquirer
